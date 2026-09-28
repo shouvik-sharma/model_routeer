@@ -1,0 +1,49 @@
+curriculum:
+  name: "QuantMetron Fast Track"
+  duration: "1-week"
+  days:
+    - day: 1
+      topic: "Risk, Expectancy, and Position Sizing"
+      concepts: ["Expected Value", "Risk of Ruin", "Kelly Criterion", "1% Rule"]
+      goal: "Understand why mathematical survival is more important than high win rates."
+      simulation_type: "calculation"
+      backtest_required: false
+    - day: 2
+      topic: "Trend Following: The SMA Cross"
+      concepts: ["Simple Moving Average", "Golden Cross", "Death Cross", "Lagging Indicators"]
+      goal: "Identify a trend and use a systematic signal for entry/exit."
+      simulation_type: "equity"
+      backtest_required: true
+      strategy: "SMA_CROSS"
+    - day: 3
+      topic: "Mean Reversion: RSI(14)"
+      concepts: ["Relative Strength Index", "Overbought/Oversold", "Range-bound Markets"]
+      goal: "Learn to fade extremes in a sideways market."
+      simulation_type: "equity"
+      backtest_required: true
+      strategy: "RSI_REVERSION"
+    - day: 4
+      topic: "Volatility and Drawdown"
+      concepts: ["Standard Deviation", "Max Drawdown", "Recovery Period", "Volatility Adjustment"]
+      goal: "Analyze the emotional and mathematical cost of strategy drawdowns."
+      simulation_type: "analysis"
+      backtest_required: true
+      strategy: "VOL_STUDY"
+    - day: 5
+      topic: "Options 101: The Basics"
+      concepts: ["Calls", "Puts", "Intrinsic vs Extrinsic Value", "Covered Calls"]
+      goal: "Understand non-linear payoffs and how to generate income from equity holdings."
+      simulation_type: "options"
+      backtest_required: false
+    - day: 6
+      topic: "Advanced Options: Spreads"
+      concepts: ["Cash-Secured Puts", "Vertical Spreads", "Probability of Profit (POP)"]
+      goal: "Learn to limit risk and increase probability using multi-leg strategies."
+      simulation_type: "options"
+      backtest_required: false
+    - day: 7
+      topic: "The Systematic Mindset"
+      concepts: ["Trading Journal", "Backtest vs Forward Test", "Discipline", "Continuous Learning"]
+      goal: "Synthesize all tools into a disciplined trading plan."
+      simulation_type: "review"
+      backtest_required: false
