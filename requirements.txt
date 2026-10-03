@@ -1,0 +1,12 @@
+# Core ML & Data Processing
+pandas>=2.2.0
+numpy>=1.26.0
+scikit-learn>=1.4.0
+
+# Dataset & Benchmark Loading (RouterBench)
+datasets>=3.0.0
+huggingface-hub>=0.25.0
+pyarrow>=17.0.0
+
+# Jupyter & Notebook Execution
+ipykernel>=6.29.0
