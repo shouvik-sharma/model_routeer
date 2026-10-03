@@ -3,4 +3,5 @@ __pycache__/
 *$py.class
 *.db
 .env
-.DS_Store
+data/
+cache/routerbench/
