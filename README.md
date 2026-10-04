@@ -42,15 +42,10 @@ QuantPath/
 │   ├── arena/                     # LMSYS Chatbot Arena datasets
 │   │   ├── arena_prompts_english.parquet   (23,613 rows, 5.5 MB)
 │   │   └── arena_prompts_english.csv       (23,613 rows, 23.9 MB)
-│   └── routerbench/               # Martian RouterBench datasets
-│       ├── routerbench_0shot_english.parquet (392,832 rows, 137.3 MB)
-│       ├── routerbench_0shot_long.parquet    (401,467 rows, 138.2 MB)
-│       └── routerbench_5shot_long.parquet    (401,621 rows, 213.5 MB)
 ├── examples/
 │   └── classify_prompt_demo.py    # Demo script showing training & inference
 ├── tools/
 │   ├── prompt_classifier.py       # Core 14-parameter extractor & classifier
-│   ├── get_routerbench.py         # RouterBench downloader & transformer
 │   └── get_arena_prompts.py       # LMSYS Chatbot Arena extractor & cleaner
 ├── prompt.ipynb                   # Interactive Jupyter notebook
 ├── requirements.txt               # Dependencies
@@ -107,22 +102,6 @@ Best for training the prompt categorization and ambiguity layer. Contains real-w
   * `data/arena/arena_prompts_english.parquet` (23,613 unique English prompts)
   * `data/arena/arena_prompts_english.csv`
 
-### 2. Martian RouterBench (Model Performance Benchmarks)
-Best for evaluating router performance, accuracy vs. cost trade-offs, and latency optimization.
-
-* **Dataset ID:** [`withmartian/routerbench`](https://huggingface.co/datasets/withmartian/routerbench)
-* **Download & Process:**
-  ```powershell
-  # Download 0-shot benchmark (401k rows in long format):
-  python -m tools.get_routerbench --split 0shot --format long --save-parquet data/routerbench/routerbench_0shot_long.parquet
-
-  # Or download 5-shot benchmark:
-  python -m tools.get_routerbench --split 5shot --format long --save-parquet data/routerbench/routerbench_5shot_long.parquet
-  ```
-* **Pre-generated Subsets:**
-  * `data/routerbench/routerbench_0shot_english.parquet` (392,832 rows, filtered for English-only benchmarks like GSM8K, MBPP, Hellaswag, MMLU).
-
----
 
 ## Usage Examples
 
@@ -164,8 +143,7 @@ import pandas as pd
 # Load 23.6K English real user prompts with preference votes:
 df_arena = pd.read_parquet("data/arena/arena_prompts_english.parquet")
 
-# Load 392K English benchmark prompts (MBPP, GSM8K, MMLU, etc.):
-df_routerbench = pd.read_parquet("data/routerbench/routerbench_0shot_english.parquet")
+
 ```
 
 ### 4. Interactive Jupyter Notebook
