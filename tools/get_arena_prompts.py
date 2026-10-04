@@ -19,6 +19,7 @@ import os
 from pathlib import Path
 from typing import Any
 
+import numpy as np
 import pandas as pd
 from datasets import load_dataset
 from huggingface_hub import get_token
@@ -31,8 +32,8 @@ def parse_conversation(value: Any) -> list:
     """Safely convert a conversation cell into a list of message dictionaries."""
     if value is None:
         return []
-    if isinstance(value, list):
-        return value
+    if isinstance(value, (list, np.ndarray, tuple)):
+        return list(value)
     if isinstance(value, str):
         try:
             return json.loads(value)
@@ -59,7 +60,7 @@ def extract_first_user_prompt(conversation: Any) -> str | None:
             if role in {"user", "human"} and content:
                 return str(content).strip()
 
-        elif isinstance(message, (list, tuple)) and len(message) >= 2:
+        elif isinstance(message, (list, tuple, np.ndarray)) and len(message) >= 2:
             role, content = message[0], message[1]
             if str(role).lower() in {"user", "human"} and content:
                 return str(content).strip()
@@ -117,12 +118,13 @@ def download_and_prepare_arena(token: str | None = None) -> tuple[pd.DataFrame, 
     else:
         df["prompt"] = df["prompt_a"]
 
-    # Locate language column
+    # Locate language column (LMSYS uses "English", "Spanish", etc.)
     language_col = first_available(df, ["language", "lang", "detected_language"])
     if language_col:
         print(f"[+] Filtering on language column: '{language_col}'")
+        lang_str = df[language_col].astype(str).str.lower()
         df_en = df[
-            (df[language_col].astype(str).str.lower() == "en")
+            lang_str.isin(["en", "english"])
             & df["prompt"].notna()
             & (df["prompt"].str.len() >= 10)
         ].copy()
@@ -157,7 +159,7 @@ def download_and_prepare_arena(token: str | None = None) -> tuple[pd.DataFrame, 
         "toxicity_tag": df_en[toxicity_col] if toxicity_col else None,
         "timestamp": df_en[timestamp_col] if timestamp_col else None,
 
-        # Routing and classification labels
+        # Routing and classification labels (placeholders for labeling / classification)
         "task_type": None,
         "task_definition_explicit": None,
         "context_completeness": None,
